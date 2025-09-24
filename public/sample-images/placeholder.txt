@@ -1,0 +1,11 @@
+# Sample Images Directory
+
+This directory should contain placeholder images for development:
+
+- video-thumb-1.jpg
+- creative-photo-1.jpg
+- event-thumb-1.jpg
+- product-photo-1.jpg
+- work-1.jpg through work-6.jpg
+
+For production, replace these with actual images and update the image paths in the components.

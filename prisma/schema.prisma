@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  budget    Budget
+  message   String
+  createdAt DateTime @default(now())
+
+  @@map("leads")
+}
+
+model MediaItem {
+  id           String     @id @default(cuid())
+  title        String
+  slug         String     @unique
+  type         MediaType
+  provider     Provider
+  url          String
+  thumbnailUrl String?
+  publishedAt  DateTime   @default(now())
+  tags         String[]
+  isFeatured   Boolean    @default(false)
+  order        Int        @default(0)
+
+  @@map("media_items")
+}
+
+model Package {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  price       Int      // Price in cents
+  description String
+  features    String[]
+  isFeatured  Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("packages")
+}
+
+enum Budget {
+  SMALL
+  STANDARD
+  PREMIUM
+}
+
+enum MediaType {
+  VIDEO
+  IMAGE
+}
+
+enum Provider {
+  YOUTUBE
+  VIMEO
+  MINIO
+  EXTERNAL
+}
